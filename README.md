@@ -35,9 +35,8 @@ push / PR で GitHub Actions（`.github/workflows/ci.yml`）が check → typech
 ## Deploy (Cloudflare Workers)
 
 ```bash
-pnpm dlx wrangler login   # 初回のみ
-pnpm build
-pnpm dlx wrangler deploy  # dist/ を静的アセットとして配信
+pnpm exec wrangler login   # 初回のみ
+pnpm deploy                # astro build && wrangler deploy
 ```
 
 設定は `wrangler.jsonc`（`assets.directory: ./dist` のみ、Worker コード無し）。

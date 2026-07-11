@@ -16,7 +16,8 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "ci:check": "biome ci .",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.2.10",
@@ -29,11 +30,16 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@biomejs/biome": "^2.5.3",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.110.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "workerd"
+    ],
+    "ignoredBuiltDependencies": [
+      "sharp"
     ]
   }
 }
