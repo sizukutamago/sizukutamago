@@ -2,7 +2,7 @@
   // Cloudflare Workers — static assets only (no Worker code / bindings).
   // Deploy with:  pnpm deploy   (runs `astro build && wrangler deploy`)
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sizukutamago-portfolio",
+  "name": "sizukutamago",
   "compatibility_date": "2025-05-21",
   "assets": {
     "directory": "./dist",
