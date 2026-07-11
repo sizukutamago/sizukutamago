@@ -1,7 +1,6 @@
 {
   // Cloudflare Workers — static assets only (no Worker code / bindings).
-  // Deploy with:  npm run build && npx wrangler deploy
-  "$schema": "node_modules/wrangler/config-schema.json",
+  // Deploy with:  pnpm build && pnpm dlx wrangler deploy
   "name": "sizukutamago-portfolio",
   "compatibility_date": "2025-05-21",
   "assets": {

@@ -12,19 +12,32 @@
 
 ## Develop
 
+パッケージマネージャは **pnpm**。
+
 ```bash
-npm install
-npm run dev        # http://localhost:4321
-npm run build      # -> dist/
-npm run preview
+pnpm install
+pnpm dev           # http://localhost:4321
+pnpm build         # -> dist/
+pnpm preview
 ```
+
+## Quality
+
+```bash
+pnpm check         # Biome: lint + format チェック
+pnpm check:fix     # Biome: 自動修正 + 整形
+pnpm typecheck     # astro check（型）
+```
+
+Lint / format は **Biome**（`biome.json`）。`.astro` は対象外（Astro のツールで扱う）。
+push / PR で GitHub Actions（`.github/workflows/ci.yml`）が check → typecheck → build を実行。
 
 ## Deploy (Cloudflare Workers)
 
 ```bash
-npx wrangler login        # 初回のみ
-npm run build
-npx wrangler deploy       # dist/ を静的アセットとして配信
+pnpm dlx wrangler login   # 初回のみ
+pnpm build
+pnpm dlx wrangler deploy  # dist/ を静的アセットとして配信
 ```
 
 設定は `wrangler.jsonc`（`assets.directory: ./dist` のみ、Worker コード無し）。

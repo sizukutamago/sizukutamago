@@ -144,12 +144,16 @@ interface Drop {
 export function initWaterGL(canvas: HTMLCanvasElement) {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const gl = (canvas.getContext("webgl", {
+  const glCtx = (canvas.getContext("webgl", {
     antialias: false,
     alpha: false,
     powerPreference: "low-power",
-  }) || canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
-  if (!gl) return;
+  }) ||
+    canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
+  if (!glCtx) return;
+  // Bind to a non-null local so TS keeps the narrowing inside the closures
+  // (resize/draw/loop) that run after this function returns.
+  const gl: WebGLRenderingContext = glCtx;
 
   const vs = compile(gl, gl.VERTEX_SHADER, VERT);
   const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG);
@@ -167,7 +171,11 @@ export function initWaterGL(canvas: HTMLCanvasElement) {
 
   const buf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 3, -1, -1, 3]),
+    gl.STATIC_DRAW,
+  );
   const loc = gl.getAttribLocation(prog, "a_pos");
   gl.enableVertexAttribArray(loc);
   gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);

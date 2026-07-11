@@ -18,10 +18,12 @@
   --sky-deep: #7dd3fc;
 
   /* type */
-  --font-display: "Hanken Grotesk Variable", system-ui, "Hiragino Kaku Gothic ProN",
+  --font-display:
+    "Hanken Grotesk Variable", system-ui, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", Meiryo, sans-serif;
-  --font-body: "Hanken Grotesk Variable", system-ui, -apple-system,
-    "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --font-body:
+    "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI",
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* fluid type scale */
@@ -62,8 +64,7 @@ body {
   min-height: 100vh;
   background:
     radial-gradient(90% 70% at 85% 0%, var(--wash), transparent 60%),
-    radial-gradient(70% 60% at 0% 100%, #dff1fa, transparent 55%),
-    var(--paper);
+    radial-gradient(70% 60% at 0% 100%, #dff1fa, transparent 55%), var(--paper);
   color: var(--ink-2);
   font-family: var(--font-body);
   font-size: var(--step-0);
@@ -192,7 +193,9 @@ html.lenis body {
   background-position: 0 100%;
   background-size: 100% 1px;
   padding-bottom: 2px;
-  transition: color 0.3s var(--ease-out), background-size 0.35s var(--ease-out);
+  transition:
+    color 0.3s var(--ease-out),
+    background-size 0.35s var(--ease-out);
 }
 .u-link:hover {
   color: var(--accent);
