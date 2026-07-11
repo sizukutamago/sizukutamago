@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="404 — Not Found" description="ページが見つかりませんでした。">
+  <section class="nf">
+    <div class="wrap nf__wrap">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="nf__title">404</h1>
+      <p class="nf__lead">お探しのページは見つかりませんでした。</p>
+      <a class="u-link nf__home" href="/">← ホームに戻る</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+  .nf__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .nf__title {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(3rem, 1rem + 12vw, 9rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .nf__lead {
+    font-size: var(--step-1);
+    color: var(--ink-2);
+  }
+  .nf__home {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+</style>

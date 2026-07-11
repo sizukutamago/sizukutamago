@@ -1,0 +1,53 @@
+---
+import "@fontsource-variable/hanken-grotesk";
+import "@fontsource-variable/geist-mono";
+import "@fontsource-variable/bricolage-grotesque/opsz.css";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "sizukutamago — Portfolio",
+  description = "AI 開発と、色々な Web アプリを作ってます。 @sizukutamago",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://example.com");
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#FBFDFE" />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <canvas id="water-canvas" style="opacity:0"></canvas>
+    <main id="main">
+      <slot />
+    </main>
+    <script>
+      import { initWaterGL } from "../scripts/water-gl.ts";
+      const c = document.getElementById("water-canvas");
+      if (c) initWaterGL(c as HTMLCanvasElement);
+    </script>
+    <script>
+      import "../scripts/motion.ts";
+    </script>
+  </body>
+</html>

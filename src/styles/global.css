@@ -1,0 +1,244 @@
+/* ============================================================
+   Design tokens — "SHIZUKU" (white water surface + 水色 accent)
+   ============================================================ */
+:root {
+  /* palette — white base, 水色 as accent / graphic only */
+  --paper: #fbfdfe; /* page background (blue-tinted white) */
+  --surface: #ffffff; /* cards / header */
+  --wash: #eaf5fb; /* pale water wash — footer band, row hover */
+  --ink: #0c2233; /* headings / strong (16.3:1 on paper) */
+  --ink-2: #33586e; /* body text (7.4:1) */
+  --muted: #567689; /* meta / captions (4.8:1 AA) */
+  --line: #d8e9f2; /* hairline */
+  --line-strong: #b5d4e4;
+  --accent: #0369a1; /* links / accent words — usable as text (5.7:1) */
+  --accent-hover: #075985; /* hover (7.3:1) */
+  --sky: #38bdf8; /* GRAPHIC ONLY — shader / marker / favicon */
+  --sky-soft: #bae6fd;
+  --sky-deep: #7dd3fc;
+
+  /* type */
+  --font-display: "Hanken Grotesk Variable", system-ui, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
+  --font-body: "Hanken Grotesk Variable", system-ui, -apple-system,
+    "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* fluid type scale */
+  --step--1: clamp(0.83rem, 0.79rem + 0.2vw, 0.94rem);
+  --step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem);
+  --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.5rem);
+  --step-2: clamp(1.44rem, 1.28rem + 0.79vw, 2rem);
+  --step-3: clamp(1.73rem, 1.48rem + 1.26vw, 2.66rem);
+  --step-4: clamp(2.07rem, 1.68rem + 1.96vw, 3.55rem);
+  --step-hero: clamp(3rem, 1.5rem + 8vw, 9.5rem);
+
+  /* layout */
+  --gutter: clamp(1.25rem, 0.9rem + 1.8vw, 2.5rem);
+  --maxw: 1200px;
+  --radius: 6px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(90% 70% at 85% 0%, var(--wash), transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, #dff1fa, transparent 55%),
+    var(--paper);
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img,
+picture,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+::selection {
+  background: var(--sky-soft);
+  color: var(--ink);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Fixed full-page water surface (WebGL); sits behind everything */
+#water-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  border-radius: 8px;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ============================================================
+   Lenis
+   ============================================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ============================================================
+   Layout helpers
+   ============================================================ */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section {
+  position: relative;
+  padding-block: clamp(4.5rem, 3rem + 9vw, 10rem);
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.eyebrow::before {
+  content: "";
+  width: 1.8rem;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+/* Underline link — 水色 accent wipe */
+.u-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--ink);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  padding-bottom: 2px;
+  transition: color 0.3s var(--ease-out), background-size 0.35s var(--ease-out);
+}
+.u-link:hover {
+  color: var(--accent);
+  background-size: 100% 2px;
+}
+
+/* ============================================================
+   Reveal / intro — hidden only when JS is on (progressive enh.)
+   ============================================================ */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+}
+html.js [data-hero-fade],
+html.js [data-split] {
+  opacity: 0;
+}
+.split-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.split-inner {
+  display: inline-block;
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal],
+  [data-hero-fade],
+  [data-split] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
